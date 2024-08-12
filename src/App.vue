@@ -6,12 +6,7 @@
   <Discount/>
 
   <img alt="Vue logo" src="./assets/logo.png">
-  <div v-for="(room,i) in oneRooms" :key="i">
-    <img :src="room.image" class="room-img">
-    <h4 @click="roomTitleClick(i);">{{ room.title }}</h4>
-    <button @click="repoertNumIncrease(i)">虚偽物件報告</button>
-    <span>報告数 : {{ productsReportNum[i] }}</span>
-  </div>
+  <Card :oneRooms = "oneRooms" :productsReportNum = "productsReportNum"/>
 </template>
 
 <script>
@@ -19,6 +14,7 @@
 import data from './assets/oneroom.js'
 import Discount from './components/Discount.vue'
 import Modal from './components/Modal.vue'
+import Card from './components/Card.vue'
 
 export default {
   name: 'App',
@@ -37,7 +33,8 @@ export default {
   },
   components: {
     Discount,
-    Modal
+    Modal,
+    Card,
   },
   methods : {
     repoertNumIncrease(index){

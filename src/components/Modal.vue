@@ -4,7 +4,7 @@
       <h4>{{oneRooms[modalClickedIndex].title}}</h4>
       <p>{{oneRooms[modalClickedIndex].content}}</p>
       <p>{{ oneRooms[modalClickedIndex].price }} 万円</p>
-      <!-- Fix me: 現在、動かない -->
+      <!-- Fix me: 現在、コンポーネント化により@clickが動かない -->
       <!-- <button @click="toggleModal">戻る</button> -->
       <Discount/>
     </div>
