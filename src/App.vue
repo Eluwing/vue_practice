@@ -1,13 +1,5 @@
 <template>
-  <div class="black-bg" v-if="isOpenModal">
-    <div class="white-bg">
-      <h4>{{oneRooms[modalClickedIndex].title}}</h4>
-      <p>{{oneRooms[modalClickedIndex].content}}</p>
-      <p>{{ oneRooms[modalClickedIndex].price }} 万円</p>
-      <button @click="toggleModal">戻る</button>
-      <Discount/>
-    </div>
-  </div>
+  <Modal :oneRooms = "oneRooms" :isOpenModal = "isOpenModal" :modalClickedIndex = "modalClickedIndex"/>
   <div class="menu">
     <a v-for="name in menus" :key="name">{{name}}</a>
   </div>
@@ -26,6 +18,7 @@
 
 import data from './assets/oneroom.js'
 import Discount from './components/Discount.vue'
+import Modal from './components/Modal.vue'
 
 export default {
   name: 'App',
@@ -44,6 +37,7 @@ export default {
   },
   components: {
     Discount,
+    Modal
   },
   methods : {
     repoertNumIncrease(index){
