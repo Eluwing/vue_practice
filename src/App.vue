@@ -5,11 +5,14 @@
       <p>{{oneRooms[modalClickedIndex].content}}</p>
       <p>{{ oneRooms[modalClickedIndex].price }} 万円</p>
       <button @click="toggleModal">戻る</button>
+      <Discount/>
     </div>
   </div>
   <div class="menu">
     <a v-for="name in menus" :key="name">{{name}}</a>
   </div>
+  <Discount/>
+
   <img alt="Vue logo" src="./assets/logo.png">
   <div v-for="(room,i) in oneRooms" :key="i">
     <img :src="room.image" class="room-img">
@@ -22,6 +25,7 @@
 <script>
 
 import data from './assets/oneroom.js'
+import Discount from './components/Discount.vue'
 
 export default {
   name: 'App',
@@ -39,6 +43,7 @@ export default {
     this.productsReportNum = Array(this.products.length).fill(0)
   },
   components: {
+    Discount,
   },
   methods : {
     repoertNumIncrease(index){
