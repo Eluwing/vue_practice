@@ -1,39 +1,40 @@
 <template>
-  <div class="black-bg" v-if="isOpenModal">
-    <div class="white-bg">
-      <h4>詳細なページタイトル</h4>
-      <p>詳細内容記載</p>
-      <button @click="toggleModal">戻る</button>
-    </div>
-  </div>
+  <Modal :oneRooms = "oneRooms" :isOpenModal = "isOpenModal" :modalClickedIndex = "modalClickedIndex"/>
   <div class="menu">
     <a v-for="name in menus" :key="name">{{name}}</a>
   </div>
+  <Discount/>
+
   <img alt="Vue logo" src="./assets/logo.png">
-  <div v-for="(name, i) in products" :key="i">
-    <img :src="`/room${i}.jpg`" class="room-img">
-    <h4 @click="toggleModal">{{ name }}</h4>
-    <p>{{ i * 10 }} 万円</p>
-    <button @click="repoertNumIncrease(i)">虚偽物件報告</button>
-    <span>報告数 : {{ productsReportNum[i] }}</span>
-  </div>
+  <Card :oneRooms = "oneRooms" :productsReportNum = "productsReportNum"/>
 </template>
 
 <script>
+
+import data from './assets/oneroom.js'
+import Discount from './components/Discount.vue'
+import Modal from './components/Modal.vue'
+import Card from './components/Card.vue'
+
 export default {
   name: 'App',
   data(){
     return{
       isOpenModal : false,
+      modalClickedIndex: 0,
       products : ['板橋区ワンルーム', '足立区ワンルーム', '千代田区ワンルーム'],
       menus : ['Home', 'Product', 'About'],
       productsReportNum : [],
+      oneRooms : data,
     }
   },
   mounted() {
     this.productsReportNum = Array(this.products.length).fill(0)
   },
   components: {
+    Discount,
+    Modal,
+    Card,
   },
   methods : {
     repoertNumIncrease(index){
@@ -41,7 +42,14 @@ export default {
     },
     toggleModal(){
       this.isOpenModal = !this.isOpenModal
-    }
+    },
+    setModalClickedIndex(clickedIndex){
+      this.modalClickedIndex = clickedIndex
+    },
+    roomTitleClick(clickedIndex){
+      this.toggleModal()
+      this.setModalClickedIndex(clickedIndex)
+    },
   },
 }
 </script>

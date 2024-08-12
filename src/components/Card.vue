@@ -1,0 +1,24 @@
+<template>
+  <div v-for="(room,i) in oneRooms" :key="i">
+    <img :src="room.image" class="room-img">
+    <!-- Fix me: 現在、コンポーネント化により@clickが動かない -->
+    <h4 @click="roomTitleClick(i);">{{ room.title }}</h4>
+    <!-- Fix me: 現在、コンポーネント化により@clickが動かない -->
+    <button @click="repoertNumIncrease(i)">虚偽物件報告</button>
+    <span>報告数 : {{ productsReportNum[i] }}</span>
+  </div>
+</template>
+
+<script>
+export default {
+  name : 'CardItem',
+  props : {
+    oneRooms : Array,
+    productsReportNum : Array,
+  },
+}
+</script>
+
+<style>
+
+</style>
