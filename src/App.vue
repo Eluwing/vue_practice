@@ -34,7 +34,7 @@ export default {
     }
   },
   mounted() {
-    this.productsReportNum = Array(this.products.length).fill(0)
+    this.productsReportNum = Array(this.oneRooms.length).fill(0)
   },
   components: {
     Discount,
