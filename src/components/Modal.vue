@@ -3,8 +3,7 @@
     <h4>{{ room.title }}</h4>
     <p>{{ room.content }}</p>
     <p>{{ room.price }} 万円</p>
-    <!-- Fix me: 現在、コンポーネント化により@clickが動かない -->
-    <!-- <button @click="toggleModal">戻る</button> -->
+    <button @click="$emit('closeModal')">戻る</button>
   </div>
 </template>
 
