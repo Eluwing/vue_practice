@@ -6,7 +6,9 @@
   <Discount/>
 
   <img alt="Vue logo" src="./assets/logo.png">
-  <Card :oneRooms = "oneRooms" :productsReportNum = "productsReportNum"/>
+  <div v-for="(room,i) in oneRooms" :key="i">
+    <Card :room = "room" :cardKey = "i" :productsReportNum = "productsReportNum[i]"/>
+  </div>
 </template>
 
 <script>
