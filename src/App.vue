@@ -9,7 +9,8 @@
 
   <img alt="Vue logo" src="./assets/logo.png">
   <div v-for="(room,i) in oneRooms" :key="i">
-    <Card @openModal="toggleModal" modalClickedIndex = $event :room = "room" :productsReportNum = "productsReportNum[i]" />
+    <Card @openModal="toggleModal" modalClickedIndex = $event @reportNumIncrease = "repoertNumIncrease"
+      :room = "room" :productsReportNum = "productsReportNum[i]" />
   </div>
 </template>
 
