@@ -1,5 +1,7 @@
 <template>
-  <Modal :oneRooms = "oneRooms" :isOpenModal = "isOpenModal" :modalClickedIndex = "modalClickedIndex"/>
+  <div class="black-bg" v-if="isOpenModal">
+    <Modal @closeModal="toggleModal" :room = "oneRooms[modalClickedIndex]"/>
+  </div>
   <div class="menu">
     <a v-for="name in menus" :key="name">{{name}}</a>
   </div>
@@ -7,7 +9,7 @@
 
   <img alt="Vue logo" src="./assets/logo.png">
   <div v-for="(room,i) in oneRooms" :key="i">
-    <Card :room = "room" :cardKey = "i" :productsReportNum = "productsReportNum[i]"/>
+    <Card @openModal="toggleModal" modalClickedIndex = $event :room = "room" :productsReportNum = "productsReportNum[i]" />
   </div>
 </template>
 
@@ -68,12 +70,6 @@ div {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
-  padding: 20px;
-}
-.white-bg {
-  width: 100%;
-  background: white;
-  border-radius: 8px;
   padding: 20px;
 }
 
