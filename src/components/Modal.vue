@@ -4,7 +4,7 @@
     <p>{{ room.content }}</p>
     <!-- inputからデータ受ける方法：@input、v-model利用 -->
     <!-- <input @input = "month = $event.target.value" /> -->
-    <input v-model.number="month" />
+    <input v-model="month" />
     <p>{{ month }}ヶ月選択 : {{ room.price * month }} 万円</p>
     <button @click="$emit('closeModal')">戻る</button>
   </div>
@@ -16,6 +16,18 @@ export default {
   data(){
     return {
       month: 0,
+    }
+  },
+  // バリデーションチェック
+  watch: {
+    month(input){
+      const pattern = /\D/
+
+      if(pattern.test(input)){
+        alert('数値のみ入力可能です。')
+        this.month = 1
+      }
+
     }
   },
   props: {
