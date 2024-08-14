@@ -10,6 +10,8 @@
   </div>
   <Discount />
 
+  <button @click="priceSort">値段ごとソート</button>
+
   <img alt="Vue logo" src="./assets/logo.png" />
   <div v-for="(room, i) in oneRooms" :key="i">
     <Card
@@ -61,6 +63,11 @@ export default {
       this.toggleModal();
       this.setModalClickedIndex(clickedIndex);
     },
+    priceSort(){
+      this.oneRooms.sort(function(a,b){
+        return a.price - b.price
+      })
+    }
   },
 };
 </script>
