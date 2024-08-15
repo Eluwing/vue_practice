@@ -55,7 +55,9 @@ export default {
   },
   mounted() {
     this.productsReportNum = Array(this.oneRooms.length).fill(0);
+    // 初期ソートを最初の文字列で設定
     this.selectedItem = this.sortItems[0];
+    // ソート実行
     this.handleSortChange();
   },
   components: {
