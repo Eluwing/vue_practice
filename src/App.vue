@@ -10,7 +10,8 @@
   </div>
   <Discount />
 
-  <button @click="priceSort">値段ごとソート</button>
+  <button @click="priceAscSort">値段ごとにソート(昇順)</button>
+  <button @click="priceDescSort">値段ごとにソート(降順)</button>
 
   <img alt="Vue logo" src="./assets/logo.png" />
   <div v-for="(room, i) in oneRooms" :key="i">
@@ -63,11 +64,16 @@ export default {
       this.toggleModal();
       this.setModalClickedIndex(clickedIndex);
     },
-    priceSort(){
+    priceAscSort(){
       this.oneRooms.sort(function(a,b){
         return a.price - b.price
       })
-    }
+    },
+    priceDescSort(){
+      this.oneRooms.sort(function(a,b){
+        return b.price - a.price
+      })
+    },
   },
 };
 </script>
