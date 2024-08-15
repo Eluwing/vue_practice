@@ -12,6 +12,7 @@
 
   <button @click="priceAscSort">値段ごとにソート(昇順)</button>
   <button @click="priceDescSort">値段ごとにソート(降順)</button>
+  <button @click="nameSort">名前ごとにソート</button>
 
   <img alt="Vue logo" src="./assets/logo.png" />
   <div v-for="(room, i) in oneRooms" :key="i">
@@ -72,6 +73,12 @@ export default {
     priceDescSort(){
       this.oneRooms.sort(function(a,b){
         return b.price - a.price
+      })
+    },
+    nameSort(){
+      this.oneRooms.sort(function(a,b){
+        // 英語小文字・大文字区分なし
+        return a.title.localeCompare(b.title)
       })
     },
   },
