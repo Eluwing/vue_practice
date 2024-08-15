@@ -9,7 +9,15 @@
     <a v-for="name in menus" :key="name">{{ name }}</a>
   </div>
   <Discount />
-
+  <div>
+    <label>Select an item:</label>
+    <select v-model="selectedItem" @change="handleSortChange">
+      <option v-for="(item, index) in sortItems" :key="index" :value="item">
+        {{ item }}
+      </option>
+    </select>
+    <p v-if="selectedItem">You selected: {{ selectedItem }}</p>
+  </div>
   <button @click="priceAscSort">値段ごとにソート(昇順)</button>
   <button @click="priceDescSort">値段ごとにソート(降順)</button>
   <button @click="nameSort">名前ごとにソート</button>
@@ -41,10 +49,14 @@ export default {
       menus: ["Home", "Product", "About"],
       productsReportNum: [],
       oneRooms: data,
+      sortItems: ["値段ごとにソート(昇順)","値段ごとにソート(降順)","物件名"],
+      selectedItem: "",
     };
   },
   mounted() {
     this.productsReportNum = Array(this.oneRooms.length).fill(0);
+    this.selectedItem = this.sortItems[0];
+    this.handleSortChange();
   },
   components: {
     Discount,
@@ -81,6 +93,23 @@ export default {
         return a.title.localeCompare(b.title)
       })
     },
+    handleSortChange(){
+      switch (this.selectedItem) {
+        case "値段ごとにソート(昇順)" :
+          this.priceAscSort()
+          break
+        case "値段ごとにソート(降順)" :
+          this.priceDescSort()
+          break
+        case "物件名" :
+          this.nameSort()
+          break
+        default :
+          break
+      }
+
+
+    }
   },
 };
 </script>
