@@ -18,6 +18,13 @@ export default {
       month: 0,
     }
   },
+  // life cycelを利用してバリデーションチェック
+  updated() {
+    if(this.month == 2){
+      alert("2入力は禁止です")
+      this.month = 1
+    }
+  },
   // バリデーションチェック
   watch: {
     month(input){
@@ -27,7 +34,6 @@ export default {
         alert('数値のみ入力可能です。')
         this.month = 1
       }
-
     }
   },
   props: {
