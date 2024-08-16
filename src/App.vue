@@ -9,19 +9,7 @@
     <a v-for="name in menus" :key="name">{{ name }}</a>
   </div>
   <Discount />
-  <div>
-    <label>Select an item:</label>
-    <select v-model="selectedItem" @change="handleSortChange">
-      <option v-for="(item, index) in sortItems" :key="index" :value="item">
-        {{ item }}
-      </option>
-    </select>
-    <p v-if="selectedItem">You selected: {{ selectedItem }}</p>
-  </div>
-  <button @click="priceAscSort">値段ごとにソート(昇順)</button>
-  <button @click="priceDescSort">値段ごとにソート(降順)</button>
-  <button @click="nameSort">名前ごとにソート</button>
-
+  <SortSelectBox :sortItems= "sortItems" @changeSelectdItem="handleSortChange"/>
   <img alt="Vue logo" src="./assets/logo.png" />
   <div v-for="(room, i) in oneRooms" :key="i">
     <Card
@@ -38,6 +26,8 @@ import data from "./assets/oneroom.js";
 import Discount from "./components/Discount.vue";
 import Modal from "./components/Modal.vue";
 import Card from "./components/Card.vue";
+import SortSelectBox from "./components/SortSelectBox.vue";
+
 
 export default {
   name: "App",
@@ -50,20 +40,18 @@ export default {
       productsReportNum: [],
       oneRooms: data,
       sortItems: ["値段ごとにソート(昇順)","値段ごとにソート(降順)","物件名"],
-      selectedItem: "",
     };
   },
   mounted() {
     this.productsReportNum = Array(this.oneRooms.length).fill(0);
     // 初期ソートを最初の文字列で設定
-    this.selectedItem = this.sortItems[0];
-    // ソート実行
-    this.handleSortChange();
+    this.handleSortChange(this.sortItems[0]);
   },
   components: {
     Discount,
     Modal,
     Card,
+    SortSelectBox,
   },
   methods: {
     repoertNumIncrease(index) {
@@ -95,8 +83,8 @@ export default {
         return a.title.localeCompare(b.title)
       })
     },
-    handleSortChange(){
-      switch (this.selectedItem) {
+    handleSortChange(selectedItem){
+      switch (selectedItem) {
         case "値段ごとにソート(昇順)" :
           this.priceAscSort()
           break
