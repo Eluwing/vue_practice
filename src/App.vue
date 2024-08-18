@@ -1,8 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="black-bg" v-if="isOpenModal">
-      <Modal @closeModal="toggleModal" :room="oneRooms[modalClickedIndex]" />
-    </div>
+    <Modal @closeModal="toggleModal" :isOpenModal="isOpenModal" :room="oneRooms[modalClickedIndex]" />
   </transition>
 
   <div class="menu">
@@ -136,14 +134,6 @@ body {
 div {
   box-sizing: border-box;
 }
-.black-bg {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  padding: 20px;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
