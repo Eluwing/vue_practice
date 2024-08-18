@@ -1,15 +1,13 @@
 <template>
   <transition name="fade">
-    <div class="black-bg" v-if="isOpenModal">
-      <Modal @closeModal="toggleModal" :room="oneRooms[modalClickedIndex]" />
-    </div>
+    <Modal @closeModal="toggleModal" :isOpenModal="isOpenModal" :room="oneRooms[modalClickedIndex]" />
   </transition>
 
   <div class="menu">
     <a v-for="name in menus" :key="name">{{ name }}</a>
   </div>
-  <Discount />
-  <SortSelectBox :sortItems= "sortItems" @changeSelectdItem="handleSortChange"/>
+  <Discount v-if="isShowDiscount" />
+  <SortSelectBox :sortItems="sortItems" @changeSelectdItem="handleSortChange" />
   <img alt="Vue logo" src="./assets/logo.png" />
   <div v-for="(room, i) in oneRooms" :key="i">
     <Card
@@ -28,21 +26,28 @@ import Modal from "./components/Modal.vue";
 import Card from "./components/Card.vue";
 import SortSelectBox from "./components/SortSelectBox.vue";
 
-
 export default {
   name: "App",
   data() {
     return {
+      isShowDiscount: true,
       isOpenModal: false,
       modalClickedIndex: 0,
       products: ["板橋区ワンルーム", "足立区ワンルーム", "千代田区ワンルーム"],
       menus: ["Home", "Product", "About"],
       productsReportNum: [],
       oneRooms: data,
-      sortItems: ["値段ごとにソート(昇順)","値段ごとにソート(降順)","物件名"],
+      sortItems: ["値段ごとにソート(昇順)", "値段ごとにソート(降順)", "物件名"],
     };
   },
+  created() {
+    //サーバーからデータ取得コード作成
+  },
   mounted() {
+    // 2秒後、Discountコンポーネント表示解除
+    // setTimeout(() => {
+    //   this.isShowDiscount = false;
+    // }, 2000);
     this.productsReportNum = Array(this.oneRooms.length).fill(0);
     // 初期ソートを最初の文字列で設定
     this.handleSortChange(this.sortItems[0]);
@@ -67,39 +72,37 @@ export default {
       this.toggleModal();
       this.setModalClickedIndex(clickedIndex);
     },
-    priceAscSort(){
-      this.oneRooms.sort(function(a,b){
-        return a.price - b.price
-      })
+    priceAscSort() {
+      this.oneRooms.sort(function (a, b) {
+        return a.price - b.price;
+      });
     },
-    priceDescSort(){
-      this.oneRooms.sort(function(a,b){
-        return b.price - a.price
-      })
+    priceDescSort() {
+      this.oneRooms.sort(function (a, b) {
+        return b.price - a.price;
+      });
     },
-    nameSort(){
-      this.oneRooms.sort(function(a,b){
+    nameSort() {
+      this.oneRooms.sort(function (a, b) {
         // 英語小文字・大文字区分なし
-        return a.title.localeCompare(b.title)
-      })
+        return a.title.localeCompare(b.title);
+      });
     },
-    handleSortChange(selectedItem){
+    handleSortChange(selectedItem) {
       switch (selectedItem) {
-        case "値段ごとにソート(昇順)" :
-          this.priceAscSort()
-          break
-        case "値段ごとにソート(降順)" :
-          this.priceDescSort()
-          break
-        case "物件名" :
-          this.nameSort()
-          break
-        default :
-          break
+        case "値段ごとにソート(昇順)":
+          this.priceAscSort();
+          break;
+        case "値段ごとにソート(降順)":
+          this.priceDescSort();
+          break;
+        case "物件名":
+          this.nameSort();
+          break;
+        default:
+          break;
       }
-
-
-    }
+    },
   },
 };
 </script>
@@ -112,7 +115,8 @@ export default {
   transition: all 1s;
 }
 .fade-enter-to {
-  opacity: 1;transform: translateY(0px);
+  opacity: 1;
+  transform: translateY(0px);
 }
 
 .fade-leave-from {
@@ -130,14 +134,6 @@ body {
 div {
   box-sizing: border-box;
 }
-.black-bg {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  padding: 20px;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
